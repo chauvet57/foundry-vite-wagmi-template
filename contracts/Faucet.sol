@@ -34,8 +34,8 @@ contract Faucet is ERC20 {
         minted += 1e18;
         lastTransferTime[msg.sender] = block.timestamp;
 
-        payable(msg.sender).transfer(0.4999999 ether);
-        emit TransferCompleted(msg.sender, 0.4999999 ether);
+        payable(msg.sender).transfer(0.49 ether);
+        emit TransferCompleted(msg.sender, 0.49 ether);
     }
 
     function withdraw() external onlyOwner {

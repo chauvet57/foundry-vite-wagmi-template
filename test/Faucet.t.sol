@@ -28,7 +28,7 @@ contract FaucetTest is Test {
         assertEq(token.balanceOf(user1), 1e18, "Balance non egale a 1e18");
         
         // Vérification du solde Ether
-        assertEq(address(faucet).balance, 0.0000001 ether);
+        assertEq(address(faucet).balance, 0.01 ether);
     }
 
     function testRevertSixHeures() public {

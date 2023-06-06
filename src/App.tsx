@@ -1,31 +1,38 @@
-import { useAccount, useConnect } from 'wagmi';
+import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import './App.css';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 
 function App() {
+
+  // Utiliser la fonction connect pour connecter le wallet
   const { connect } = useConnect({ connector: new MetaMaskConnector() });
   const { address } = useAccount();
+  const { disconnect } = useDisconnect()
+
+  
 
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1>MYT Faucet</h1>
+        <h3>Créditer votre compte crypto de 2 MYT par jour (2 x 1 MYT espacé de 6 heures ) </h3>
       </div>
-      <h1>Vite + React + Wagmi</h1>
       <div className="card">
-        {!address ? <button onClick={() => connect()}>Connect MetaMask</button> : <p>Connected as {address}</p>}
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <h3>Connectez vous à votre Wallet</h3>
+        {!address ? 
+          <button onClick={() => connect()}>Connexion MetaMask</button> 
+          : 
+          <>
+            <button onClick={() => disconnect()}>Déconnexion MetaMask</button>
+            <p>connect as: {address}</p>
+          </>
+          
+        }
       </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
+      <div>
+        <input type="text"  placeholder="Entrez votre adresse de votre compte crypto" />
+        <button>Valider</button>
+      </div>
     </>
   );
 }
