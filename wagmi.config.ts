@@ -7,6 +7,10 @@ export default defineConfig({
   plugins: [
     foundry({
       project: '.',
+      include: ['Faucet.sol/*.json'],
+      deployments: {
+        MyToken: 'Ox$address du contract'
+      }
     }),
   ],
 });
