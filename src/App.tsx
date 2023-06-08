@@ -35,6 +35,7 @@ function App() {
           <input type="text" placeholder={address} />
         }
         <p>Lors de l'achat d'un MYT, une preuve de bonne foi sous forme de 0,5 ether vous sera demandée, mais une fois que le MYT sera crédité, vous recevrez un remboursement de 0,499 ether en signe de confiance.</p>
+        /** use du hook pour Mint */
         <button>Acheter 1 MYT</button>
       </div>
     </>

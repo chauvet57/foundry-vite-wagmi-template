@@ -9,7 +9,7 @@ export default defineConfig({
       project: '.',
       include: ['Faucet.sol/*.json'],
       deployments: {
-        MyToken: 'Ox$address du contract'
+        //MyToken: 'Ox$address du contract'
       }
     }),
   ],
