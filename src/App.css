@@ -4,3 +4,120 @@
   padding: 2rem;
   text-align: center;
 }
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-height: 100vh;
+  background-color: rgb(36, 36, 36);
+  background-image: linear-gradient(45deg, rgba(40, 40, 40, 0.6), rgba(66, 66, 66, 0.939) 40%, rgba(230, 230, 230, 0.2) 60%, rgba(75, 75, 75, 0.6)), 
+                    linear-gradient(95deg, rgba(101, 96, 96, 0.2), rgba(255, 255, 255, 0.4) 40%, rgba(252, 72, 27, 0.282) 60%, rgba(255, 255, 255, 0.442));
+  background-blend-mode: overlay;
+  animation: backgroundAnimation 1s ease infinite;
+}
+
+@keyframes backgroundAnimation {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  background: linear-gradient(45deg, rgb(0, 4, 255), rgb(255, 0, 0));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradientAnimation 1s ease infinite;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.1), 0 0 20px rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+h3 {
+  text-shadow: 2px 2px 2px black;
+}
+
+button {
+  border-radius: 8px;
+  border: 2px solid ;
+  padding: 0.6em 1.2em;
+  font-size: 1.2em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #6d4ce4;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  text-shadow: 2px 2px 2px rgb(197, 197, 197);
+}
+button:hover {
+  border-color: #5ec116;
+  background-color: #89f53c;
+  color: #313131;
+  text-shadow: 2px 2px 2px white;
+  box-shadow: 2px 2px 2px rgba(167, 255, 149, 0.717);
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  margin-bottom: 20px;
+  padding: 25px;
+  width: 100%;
+  border-radius: 25px;
+  border: 1px solid black;
+  background-color: rgba(240, 255, 255, 0.031);
+  box-shadow: 2px 2px 2px rgba(255, 255, 255, 0.492);
+}
+
+.card input[type=text] {
+  width: 70%;
+  height: 50px;
+  border-radius: 10px;
+  margin: 10px;
+  font-size: 18px;
+  padding: 2px;
+  padding-left: 20px;
+  background-color: rgba(255, 255, 255, 0.913);
+  text-shadow: 1px 1px 1px black;
+
+}
+.card button {
+  width: 300px;
+  z-index: 1;
+}
+
+.card p {
+  width: 70%;
+  font-size: 18px;
+}

@@ -24,14 +24,18 @@ function App() {
           : 
           <>
             <button onClick={() => disconnect()}>Déconnexion MetaMask</button>
-            <p>connect as: {address}</p>
+            <p><h3>Le compte connecté est: </h3>{address}</p>
           </>
-          
         }
       </div>
-      <div>
-        <input type="text"  placeholder="Entrez votre adresse de votre compte crypto" />
-        <button>Valider</button>
+      <div className="card">
+      {!address ? 
+          <input type="text" placeholder="Entrez votre adresse de votre compte crypto" /> 
+          : 
+          <input type="text" placeholder={address} />
+        }
+        <p>Lors de l'achat d'un MYT, une preuve de bonne foi sous forme de 0,5 ether vous sera demandée, mais une fois que le MYT sera crédité, vous recevrez un remboursement de 0,499 ether en signe de confiance.</p>
+        <button>Acheter 1 MYT</button>
       </div>
     </>
   );
