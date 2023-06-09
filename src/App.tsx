@@ -1,6 +1,9 @@
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
+import { useFaucetMint, useFaucetWithdraw, useFaucetOwner  } from './wagmi.generated';
 
 function App() {
 
@@ -9,7 +12,41 @@ function App() {
   const { address } = useAccount();
   const { disconnect } = useDisconnect()
 
+  const { write: mint } = useFaucetMint();
+  const faucetWithdraw = useFaucetWithdraw();
+
+  const handleMint = async () => {
+    try {
+      if (address) {
+        await mint(/* args */);
+        toast.success('Mint successful!', { autoClose: 4000 });
+      } else {
+        toast.error('Vous devez d\'abord vous connecter à votre wallet.');
+      }
+    } catch (error) {
+      toast.error('Mint error !');
+    }
+  };
   
+  const handleWithdraw = async () => {
+    try {
+      if (address) {
+        const { data: ownerData } = useFaucetOwner();
+        const isOwner = ownerData === address;
+  
+        if (isOwner) {
+          await faucetWithdraw.write(/* args */);
+          toast.success('Retrait réussi !', { autoClose: 4000 });
+        } else {
+          toast.error("Seul le propriétaire du contrat peut effectuer un retrait.");
+        }
+      } else {
+        toast.error('Vous devez d\'abord vous connecter à votre wallet.');
+      }
+    } catch (error) {
+      toast.error('Erreur de retrait !');
+    }
+  };
 
   return (
     <>
@@ -35,9 +72,13 @@ function App() {
           <input type="text" placeholder={address} />
         }
         <p>Lors de l'achat d'un MYT, une preuve de bonne foi sous forme de 0,5 ether vous sera demandée, mais une fois que le MYT sera crédité, vous recevrez un remboursement de 0,499 ether en signe de confiance.</p>
-        /** use du hook pour Mint */
-        <button>Acheter 1 MYT</button>
+        <button onClick={handleMint} >Acheter 1 MYT</button>
       </div>
+      <div className="card">
+      <p>Seul le propriétaire du contrat peu récolter les fonds.</p>
+        <button onClick={handleWithdraw} >Retrait</button>
+      </div>
+      <ToastContainer />
     </>
   );
 }
