@@ -1,5 +1,5 @@
 import { defineConfig } from '@wagmi/cli';
-import { foundry } from '@wagmi/cli/plugins';
+import { foundry, react } from '@wagmi/cli/plugins';
 
 export default defineConfig({
   out: 'src/wagmi.generated.ts',
@@ -12,5 +12,6 @@ export default defineConfig({
         //MyToken: 'Ox$address du contract'
       }
     }),
+    react()
   ],
 });
