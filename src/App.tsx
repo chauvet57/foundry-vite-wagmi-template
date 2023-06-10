@@ -1,9 +1,11 @@
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { ToastContainer, toast } from 'react-toastify';
+import { useProvider, useContractWrite } from 'ethers-react';
+import { ethers } from 'ethers';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
-import { useFaucetMint, useFaucetWithdraw, useFaucetOwner  } from './wagmi.generated';
+import { useFaucetMint, useFaucetWithdraw, useFaucetOwner, useFaucetTransfer  } from './wagmi.generated';
 
 function App() {
 
@@ -14,20 +16,54 @@ function App() {
 
   const { write: mint } = useFaucetMint();
   const faucetWithdraw = useFaucetWithdraw();
+  const faucetABI = [
+    // Copiez ici l'ABI du contrat Faucet
+  ];
 
   const handleMint = async () => {
     try {
+      const provider = useProvider();
+  
       if (address) {
-        await mint(/* args */);
-        toast.success('Mint successful!', { autoClose: 4000 });
+        const userBalance = await provider.getBalance(address);
+        const requiredAmount = ethers.utils.parseEther('0.5');
+  
+        if (userBalance.gte(requiredAmount)) {
+          await mint(/* args */);
+          toast.success('Mint successful!', { autoClose: 4000 });
+  
+          // Transférer 4,99 ether sur le compte utilisateur
+          const transferAmount = ethers.utils.parseEther('4.99');
+          const transferConfig = {
+            value: transferAmount,
+            to: address,
+          };
+  
+          const useFaucetTransfer = useContractWrite({
+            abi: faucetABI,
+            functionName: 'transfer',
+            // Autres configurations nécessaires pour le transfert
+          });
+  
+          const transferResult = await useFaucetTransfer.transfer(transferConfig);
+          if (transferResult && transferResult.status === 'success') {
+            toast.success('Transfert réussi !');
+          } else {
+            toast.error('Erreur lors du transfert.');
+          }
+        } else {
+          toast.error(
+            "Fonds insuffisants. Vous devez payer 0.5 ether pour effectuer le minting."
+          );
+        }
       } else {
-        toast.error('Vous devez d\'abord vous connecter à votre wallet.');
+        toast.error("Vous devez d'abord vous connecter à votre wallet.");
       }
     } catch (error) {
-      toast.error('Mint error !');
+      toast.error('Mint error!');
     }
   };
-  
+
   const handleWithdraw = async () => {
     try {
       if (address) {
